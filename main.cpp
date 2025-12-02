@@ -45,6 +45,18 @@ void doTest3() {
     // Skeleton 캐릭터를 players에 추가
     // Lich 캐릭터를 players에 추가
 
+    shared_ptr<Undead> zombie = make_shared<Zombie>();
+    shared_ptr<Undead> skel = make_shared<Skeleton>();
+    shared_ptr<Undead> lich = make_shared<Lich>();
+
+    shared_ptr<Character> adapter = make_shared<UndeadAdapter>(zombie);
+    players.push_back(adapter);
+
+    adapter = make_shared<UndeadAdapter>(skel);
+    players.push_back(adapter);
+
+    adapter = make_shared<UndeadAdapter>(lich);
+    players.push_back(adapter);
 
     for(auto player: players){
         cout << "-------------------------------------------------------------" << endl;
@@ -54,6 +66,9 @@ void doTest3() {
     }
     cout << "-------------------------------------------------------------" << endl;
 
+    for(auto& player: players){
+       player.reset();
+    }
 }
 
 struct Student{
